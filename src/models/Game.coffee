@@ -5,11 +5,12 @@ class window.Game extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
     @set 'gameOutcome', null
 
-  checkScore: ->
+  decider: ->
     playerScore = @get('playerHand').scores()
-    dealerScore = @get('dealerHand').scores()
+    dealer = @get('dealerHand')
     if playerScore[0] > 21 then @gameOver 'YOU LOSE, LOSER'
-    
+    if dealer.hasBlackJack and playerScore[0] is 21
+
     return
 
   gameOver: (outcome) -> 

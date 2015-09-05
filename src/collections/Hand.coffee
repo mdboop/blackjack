@@ -3,22 +3,32 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
+  hasBlackJack: -> 
+    firstRank = @at(0).get('rank')
+    secondRank = @at(1).get('rank')
+
+    if (firstRank is 1) or (secondRank is 1)
+      if (firstRank is 0 or firstRank >= 10) or (secondRank is 0 or secondRank >= 10)
+        @at(0).flip()
+        @trigger 'blackJack'
+        true
+
   hit: ->
     if !@isDealer
       @add(@deck.pop())
       @last()
       @trigger 'hit', @
     if @isDealer
-      debugger
+      # debugger
       if @at(0).get('revealed') is false
         @at(0).flip()
       else
-        #add a card
+        @add(@deck.pop())
+        @last()
       dealerScore = @scores()[0]
       if dealerScore > 21 then @trigger 'playerWin'
       if dealerScore < 17 then @hit()
       else @stand()
-
 
   stand: -> 
     if !@isDealer
@@ -39,5 +49,12 @@ class window.Hand extends Backbone.Collection
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
     [@minScore(), @minScore() + 10 * @hasAce()]
+
+  scoresView: -> 
+    scores = @scores()
+    if (scores[0] is scores[1]) or (scores[1] > 21)
+      "#{scores[0]}"
+    else
+      "#{scores[0]} / #{scores[1]}"
 
 

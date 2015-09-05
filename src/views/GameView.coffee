@@ -12,8 +12,9 @@ class window.GameView extends Backbone.View
 
   initialize: ->
     @render()
-    @model.get('playerHand').on('hit', @model.checkScore, @model)
+    @model.get('playerHand').on('hit', @model.decider, @model)
     @model.get('playerHand').on('playerStand', @model.get('dealerHand').hit, @model.get('dealerHand'))
+    @model.get('dealerHand').on('blackJack', @model.decider)
 
     return
 
