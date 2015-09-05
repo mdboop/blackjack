@@ -9,7 +9,8 @@ class window.Game extends Backbone.Model
     playerScore = @get('playerHand').scores()
     dealer = @get('dealerHand')
     if playerScore[0] > 21 then @gameOver 'YOU LOSE, LOSER'
-    if dealer.hasBlackJack and playerScore[0] is 21
+    if (dealer.hasBlackJack and playerScore[0] is 21)
+      console.log 'it\'s a draw!'
 
     return
 
