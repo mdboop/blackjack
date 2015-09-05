@@ -8,6 +8,5 @@ class window.OutcomeView extends Backbone.View
     @model.on('gameOver', @render, @)
 
   render: ->
-    debugger
     @$el.html @template @model.attributes
     

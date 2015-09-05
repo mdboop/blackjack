@@ -9,7 +9,7 @@ class window.Game extends Backbone.Model
     playerScore = @get('playerHand').scores()
     dealerScore = @get('dealerHand').scores()
     if playerScore[0] > 21 then @gameOver 'YOU LOSE, LOSER'
-    # else 
+    
     return
 
   gameOver: (outcome) -> 
