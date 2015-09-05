@@ -10,7 +10,7 @@ class window.Hand extends Backbone.Collection
     if (firstRank is 1) or (secondRank is 1)
       if (firstRank is 0 or firstRank >= 10) or (secondRank is 0 or secondRank >= 10)
         @at(0).flip()
-        @trigger 'blackJack'
+        @trigger 'Blackjack'
         true
 
   hit: ->
@@ -52,7 +52,7 @@ class window.Hand extends Backbone.Collection
 
   scoresView: -> 
     scores = @scores()
-    if (scores[0] is scores[1]) or (scores[1] > 21)
+    if (scores[0] is scores[1]) or ((scores[1] > 21) or !@at(0).get('revealed'))
       "#{scores[0]}"
     else
       "#{scores[0]} / #{scores[1]}"
