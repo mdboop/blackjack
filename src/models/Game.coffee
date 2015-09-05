@@ -4,11 +4,12 @@ class window.Game extends Backbone.Model
 
     'blackJack': false
     'deck': deck = new Deck()
+    'roundOver': false
+    'gameOutcome': null
 
   initialize: ->
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-    @set 'gameOutcome', null
 
   hitCheck: ->
     lose = 'YOU LOSE, YOU LOSING LOSER. playerCry();'
@@ -37,4 +38,11 @@ class window.Game extends Backbone.Model
 
   roundOver: (outcome) -> 
     @set 'gameOutcome', outcome
+    @set 'roundOver', true
     @trigger 'roundOver'
+
+  newRound: ->
+    @set 'playerHand', deck.dealPlayer()
+    @set 'dealerHand', deck.dealDealer()
+    @set 'roundOver', false
+    @set 'gameOutcome', null

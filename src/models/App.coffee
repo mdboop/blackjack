@@ -3,7 +3,4 @@
 class window.App extends Backbone.Model
   initialize: ->
     new GameView(model: new Game())
-    # @set 'deck', deck = new Deck()
-    # @set 'playerHand', deck.dealPlayer()
-    # @set 'dealerHand', deck.dealDealer()
 
