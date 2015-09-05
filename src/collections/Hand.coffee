@@ -19,7 +19,6 @@ class window.Hand extends Backbone.Collection
       @last()
       @trigger 'hit', @
     if @isDealer
-      # debugger
       if @at(0).get('revealed') is false
         @at(0).flip()
       else
@@ -29,6 +28,7 @@ class window.Hand extends Backbone.Collection
       if dealerScore > 21 then @trigger 'playerWin'
       if dealerScore < 17 then @hit()
       else @stand()
+    @last()
 
   stand: -> 
     if !@isDealer

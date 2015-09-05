@@ -18,7 +18,6 @@ class window.Card extends Backbone.Model
     @set 'currentImage', "img/cards/#{rankName}-#{suitName}.png"
     @set 'altImage', "img/card-back.png"
   flip: ->
-    debugger
     @set 'revealed', !@get 'revealed'
     tempImage = @get 'currentImage'
     @set 'currentImage', @get 'altImage'
