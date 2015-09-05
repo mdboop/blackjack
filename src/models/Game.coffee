@@ -11,36 +11,27 @@ class window.Game extends Backbone.Model
     @set 'gameOutcome', null
 
   hitCheck: ->
-    playerScore = @get('playerHand').scores()
-    if playerScore[0] > 21 then @decider()
+    lose = 'YOU LOSE, YOU LOSING LOSER. playerCry();'
+    playerScore = @get('playerHand').maxScore()
+    if playerScore > 21 then @gameOver lose
 
   decider: ->
-    # debugger
-    playerScore = @get('playerHand').scores()
+    playerScore = @get('playerHand').maxScore()
     dealer = @get('dealerHand')
-    dealerScore = dealer.scores()
+    dealerScore = dealer.maxScore()
     win = 'Congratuladylations!  You WON!  Savor it while it lasts ...'
     lose = 'YOU LOSE, YOU LOSING LOSER. playerCry();'
     draw = 'Meh, it\'s a draw.  Yawn.'
-    debugger
     if @get('blackJack')
-      debugger
       if playerScore[0] is 21 then @gameOver draw
       else @gameOver lose
 
-    else if playerScore[0] > 21 then @gameOver lose
-
-    else if (playerScore[0] > dealerScore[0]) or (dealerScore[0] > 21)
-      @gameOver win
-
-    else if (dealerScore[0] > playerScore[0])
-      @gameOver lose 
-
-    else if (dealerScore[0] is playerScore[0])
-      @gameOver draw
+    else if playerScore > dealerScore then @gameOver win
+    else if dealerScore > 21 then @gameOver win
+    else if playerScore is dealerScore then @gameOver draw 
+    else @gameOver lose 
 
   blackJack: ->
-    debugger
     @set 'blackJack', true
     @decider()
 
