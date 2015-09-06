@@ -27,8 +27,16 @@ class window.GameView extends Backbone.View
     $('.stand-button').attr "disabled", 'disabled'
 
   setNewRound: ->
+    @$el.children().detach() 
     $('.hit-button').removeAttr "disabled"
     $('.stand-button').removeAttr "disabled"
+    @model.get('playerHand').on('hit', @model.hitCheck, @model)
+    @model.get('playerHand').on('playerStand', @model.get('dealerHand').hit, @model.get('dealerHand'))
+    @model.get('dealerHand').on('Blackjack', @model.blackJack, @model)
+    @model.get('dealerHand').on('dealerStand', @model.decider, @model)
+    @model.get('dealerHand').hasBlackJack()
+    @model.on('roundOver', @disableButtons)
+    @model.on('newRound', @setNewRound, @)
     @render()
 
   render: ->
